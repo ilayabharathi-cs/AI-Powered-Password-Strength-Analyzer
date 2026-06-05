@@ -1,5 +1,6 @@
 import React from 'react';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { Brain } from 'lucide-react';
 
 export default function AnalyticsDashboard({ analysis }) {
   if (!analysis) return null;
@@ -29,10 +30,10 @@ export default function AnalyticsDashboard({ analysis }) {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="w-full max-w-6xl mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
       
       {/* Radar Chart for Overall Metrics */}
-      <div className="bg-cyber-card border border-cyber-border rounded-xl p-6 shadow-lg">
+      <div className="bg-cyber-card border border-cyber-border rounded-xl p-6 shadow-lg lg:col-span-1">
         <h3 className="text-cyber-neonBlue text-lg font-semibold mb-4 uppercase tracking-wider">Metrics Analysis</h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
@@ -47,8 +48,39 @@ export default function AnalyticsDashboard({ analysis }) {
         </div>
       </div>
 
+      {/* AI Risk Analysis Panel */}
+      <div className="bg-cyber-card border border-cyber-border rounded-xl p-6 shadow-lg relative overflow-hidden group lg:col-span-1">
+        <div className="absolute top-0 right-0 w-24 h-24 bg-cyber-neonPurple opacity-5 rounded-bl-full group-hover:scale-150 transition-transform duration-500"></div>
+        <div className="flex items-center gap-2 mb-4 border-b border-cyber-border pb-3">
+          <Brain className="text-cyber-neonPurple animate-pulse" size={24} />
+          <h3 className="text-cyber-neonPurple text-lg font-semibold uppercase tracking-wider">AI Risk Analysis</h3>
+        </div>
+        <div className="space-y-4 font-mono text-sm">
+          <div className="flex justify-between border-b border-cyber-border/30 pb-2">
+            <span className="text-gray-400">Pattern Type:</span>
+            <span className="text-white font-semibold">{analysis.ai_details?.pattern_type || 'Analyzing...'}</span>
+          </div>
+          <div className="flex justify-between border-b border-cyber-border/30 pb-2">
+            <span className="text-gray-400">Risk Level:</span>
+            <span className={`font-bold uppercase ${
+              analysis.ai_details?.risk_level === 'Low' ? 'text-cyber-neonGreen' :
+              analysis.ai_details?.risk_level === 'Medium' ? 'text-cyber-neonBlue' :
+              analysis.ai_details?.risk_level === 'High' ? 'text-yellow-500' : 'text-red-500'
+            }`}>{analysis.ai_details?.risk_level || 'Analyzing...'}</span>
+          </div>
+          <div className="flex justify-between border-b border-cyber-border/30 pb-2">
+            <span className="text-gray-400">Attack Vector:</span>
+            <span className="text-white text-right font-semibold">{analysis.ai_details?.attack_vector || 'Analyzing...'}</span>
+          </div>
+          <div className="flex justify-between pb-2">
+            <span className="text-gray-400">Confidence:</span>
+            <span className="text-cyber-neonBlue font-bold">{analysis.ai_details?.confidence || '0%'}</span>
+          </div>
+        </div>
+      </div>
+
       {/* Stats Cards */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 lg:col-span-1">
         
         <div className="bg-cyber-card border border-cyber-border rounded-xl p-6 shadow-lg relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-16 h-16 bg-cyber-neonPink opacity-10 rounded-bl-full group-hover:scale-150 transition-transform duration-500"></div>
@@ -78,7 +110,7 @@ export default function AnalyticsDashboard({ analysis }) {
 
       {/* Recommendations */}
       {analysis.recommendations && analysis.recommendations.length > 0 && (
-        <div className="col-span-1 md:col-span-2 bg-cyber-card border border-cyber-border rounded-xl p-6 shadow-lg">
+        <div className="col-span-1 lg:col-span-3 bg-cyber-card border border-cyber-border rounded-xl p-6 shadow-lg">
           <h3 className="text-yellow-500 text-lg font-semibold mb-4 uppercase tracking-wider">Security Recommendations</h3>
           <ul className="list-disc list-inside text-gray-300 space-y-2 font-mono text-sm">
             {analysis.recommendations.map((rec, idx) => (

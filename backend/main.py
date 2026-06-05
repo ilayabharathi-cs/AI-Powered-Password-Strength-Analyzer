@@ -6,7 +6,7 @@ import string
 
 from analyzer import analyze_password
 from breach_checker import check_pwned_password
-from ai_model import predict_risk
+from ai_model import predict_risk, get_ai_details
 
 app = FastAPI(title="AI Password Strength Analyzer")
 
@@ -29,6 +29,7 @@ class PasswordResponse(BaseModel):
     entropy: float
     crack_time: str
     ai_risk: str
+    ai_details: dict[str, str]
     breached: bool
     breach_count: int
     recommendations: list[str]
@@ -42,6 +43,7 @@ def analyze_endpoint(req: PasswordRequest):
     
     # 2. AI Risk Prediction
     ai_risk = predict_risk(pwd)
+    ai_details = get_ai_details(pwd)
     
     # 3. Breach Check
     breach_info = check_pwned_password(pwd)
@@ -66,6 +68,7 @@ def analyze_endpoint(req: PasswordRequest):
         entropy=analysis["entropy"],
         crack_time=analysis["crack_time"],
         ai_risk=ai_risk,
+        ai_details=ai_details,
         breached=breach_info.get("breached", False),
         breach_count=breach_info.get("count", 0),
         recommendations=recs

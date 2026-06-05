@@ -98,3 +98,65 @@ def predict_risk(password: str) -> str:
         3: "Very Strong"
     }
     return mapping.get(prediction, "Unknown")
+
+def get_ai_details(password: str) -> dict:
+    if not clf:
+        return {
+            "pattern_type": "Unknown",
+            "risk_level": "Unknown",
+            "attack_vector": "Unknown",
+            "confidence": "0%"
+        }
+        
+    features = extract_features(password)
+    X = np.array(features).reshape(1, -1)
+    
+    prediction = clf.predict(X)[0]
+    probabilities = clf.predict_proba(X)[0]
+    confidence_val = int(np.max(probabilities) * 100)
+    
+    # Risk Level mapping
+    risk_mapping = {
+        0: "Critical",
+        1: "High",
+        2: "Medium",
+        3: "Low"
+    }
+    risk_level = risk_mapping.get(prediction, "Unknown")
+    
+    # Attack Vector mapping
+    vector_mapping = {
+        0: "Brute Force Susceptible",
+        1: "Dictionary Attack Susceptible",
+        2: "Credential Stuffing Vulnerable",
+        3: "Brute Force Resistant"
+    }
+    attack_vector = vector_mapping.get(prediction, "Unknown")
+    
+    # Simple pattern analysis
+    pwd_lower = password.lower()
+    has_seq = False
+    sequences = ["123", "abc", "qwe", "asd", "zxc", "password", "qwerty"]
+    for seq in sequences:
+        if seq in pwd_lower:
+            has_seq = True
+            break
+            
+    entropy = features[5]
+    if has_seq:
+        pattern_type = "Sequential Sequence"
+    elif password.isdigit():
+        pattern_type = "Numeric Only"
+    elif password.isalpha() and password.islower():
+        pattern_type = "Lowercase Word"
+    elif entropy > 75:
+        pattern_type = "Randomized / High Entropy"
+    else:
+        pattern_type = "Standard Keyboard Pattern"
+        
+    return {
+        "pattern_type": pattern_type,
+        "risk_level": risk_level,
+        "attack_vector": attack_vector,
+        "confidence": f"{confidence_val}%"
+    }

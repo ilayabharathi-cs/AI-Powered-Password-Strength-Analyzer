@@ -3,7 +3,7 @@ import axios from 'axios';
 import PasswordInput from './components/PasswordInput';
 import StrengthMeter from './components/StrengthMeter';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, Sparkles } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
@@ -51,7 +51,7 @@ function App() {
         <div className="flex justify-center items-center gap-3 mb-4">
           <ShieldCheck size={48} className="text-cyber-neonBlue animate-pulse" />
           <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonBlue to-cyber-neonPurple tracking-tight">
-            AI Password Analyzer
+            AI-Powered Password Strength Analyzer
           </h1>
         </div>
         <p className="text-gray-400 max-w-xl mx-auto text-lg">
@@ -68,6 +68,16 @@ function App() {
             setPassword={setPassword} 
             onGenerate={handleGenerate}
           />
+          
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={handleGenerate}
+              className="flex items-center gap-2 bg-gradient-to-r from-cyber-neonPink to-cyber-neonPurple text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-all shadow-[0_0_15px_rgba(181,0,255,0.4)] hover:shadow-[0_0_25px_rgba(181,0,255,0.7)] uppercase tracking-wider text-xs font-mono"
+            >
+              <Sparkles size={16} />
+              Generate Strong Password
+            </button>
+          </div>
           
           {password && (
              <StrengthMeter 
@@ -92,8 +102,11 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="max-w-4xl mx-auto mt-20 text-center text-gray-600 text-sm font-mono">
+      <footer className="max-w-4xl mx-auto mt-20 text-center text-gray-500 text-sm font-mono space-y-2">
         <p>Security Note: This system performs analysis in-memory. Passwords are never stored.</p>
+        <p className="text-gray-600 text-xs">
+          Built with: <span className="text-cyber-neonBlue">React</span> • <span className="text-cyber-neonPurple">FastAPI</span> • <span className="text-cyber-neonGreen">Scikit-learn</span> • <span className="text-cyber-neonPink">Tailwind CSS</span>
+        </p>
       </footer>
 
     </div>
