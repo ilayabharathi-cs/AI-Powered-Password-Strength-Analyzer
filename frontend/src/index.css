@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-bg: #050510;
+  --color-cyber-card: #0d0d1f;
+  --color-cyber-border: #1f1f3a;
+  --color-cyber-neon-green: #00ff9d;
+  --color-cyber-neon-pink: #ff007f;
+  --color-cyber-neon-blue: #00f0ff;
+  --color-cyber-neon-purple: #b500ff;
+  --color-cyber-neongreen: #00ff9d;
+  --color-cyber-neonpink: #ff007f;
+  --color-cyber-neonblue: #00f0ff;
+  --color-cyber-neonpurple: #b500ff;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Fira Code", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cyber-bg);
+    color: #f3f4f6;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
