@@ -3,7 +3,8 @@ import axios from 'axios';
 import PasswordInput from './components/PasswordInput';
 import StrengthMeter from './components/StrengthMeter';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
-import { ShieldCheck, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import logo from './assets/logo.png';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
@@ -49,7 +50,7 @@ function App() {
       {/* Header */}
       <header className="max-w-4xl mx-auto mb-12 text-center">
         <div className="flex justify-center items-center gap-3 mb-4">
-          <ShieldCheck size={48} className="text-cyber-neonBlue animate-pulse" />
+          <img src={logo} alt="Logo" className="w-12 h-12 rounded-xl border border-cyber-border shadow-[0_0_15px_rgba(0,240,255,0.3)] animate-pulse object-cover" />
           <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonBlue to-cyber-neonPurple tracking-tight">
             AI-Powered Password Strength Analyzer
           </h1>
