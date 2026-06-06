@@ -45,8 +45,12 @@ graph TD
 ```
 
 ## Screenshots
-*(Add screenshots here)*
-![Dashboard Screenshot](https://raw.githubusercontent.com/ilayabharathi-cs/AI-Powered-Password-Strength-Analyzer/main/screenshot.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### AI Risk Analysis
+![AI Analysis](screenshots/analysis.png)
 
 ## Installation
 Follow these instructions to run the application locally on your system:
